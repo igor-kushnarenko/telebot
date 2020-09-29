@@ -36,9 +36,10 @@ def get_content(html):
 def get_text_calendar_parser(items):
     current_datetime = datetime.now()
     acc = []
-    for i in items[:7]: #todo отобразить только следующие 14 дней
+    for i in items[1:8]:
         acc.append(f"{i['data']} {i['week_day']}\n{i['title'].upper()}\n")
-    return acc
+    acc_string = '\n'.join(acc)
+    return acc_string
 
 
 html = get_html(URL)
