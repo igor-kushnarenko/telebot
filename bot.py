@@ -4,6 +4,7 @@ from settings import TOKEN
 from promotion_parser import obj_text
 from restaurant_parser import restaurant_obj_text
 from calendar_parser import calendar_obj_text
+from news_parser import news_obj_text
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -53,6 +54,10 @@ def inline_key(message):
 
     elif message.text.lower() == 'трансфер':
         bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797')
+
+    elif message.text.lower() == 'новости':
+        for text in news_obj_text:
+            bot.send_message(message.chat.id, text)
 
 
 bot.polling()
