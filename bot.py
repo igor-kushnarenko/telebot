@@ -57,8 +57,7 @@ def inline_key(message):
             bot.send_message(message.chat.id, text)
 
     elif message.text.lower() == 'рестораны и бары':
-        for text in restaurant_obj_text:
-            bot.send_message(message.chat.id, text)
+        bot.send_message(message.chat.id, restaurant_obj_text)
 
     elif message.text.lower() == 'бронирование':
         bot.send_message(message.chat.id, 'https://booking.aleanfamily.ru/index.php?hotel=523')

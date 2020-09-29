@@ -17,12 +17,14 @@ def get_html(url, params=''):
 def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
     items = soup.find_all('div', class_='col-md-4 col-sm-6 col-centered col-restaurant')
+    # print(items)
     data = []
 
     for item in items:
         data.append(
             {
                 'title': item.find('img').get('title'),
+                'desc': item.find('div', class_='caption').get_text(strip=True),
                 'href': HOST + item.find('a', class_='btn btn-block btn-offers').get('href'),
             }
         )
@@ -32,8 +34,11 @@ def get_content(html):
 def get_text_promothion_parser(items):
     acc = []
     for i in items:
-        acc.append(f"{i['title'].upper()} - {i['href']}\n\n")
-    return acc
+        description = i['desc'].split(sep='.')
+        acc.append(f"{i['title'].upper()}\n{description[0]}\n{i['href']}\n")
+    acc_string = '\n\n'.join(acc)
+    print(acc_string)
+    return acc_string
 
 
 html = get_html(URL)
