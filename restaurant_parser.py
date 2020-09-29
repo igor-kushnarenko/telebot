@@ -36,7 +36,7 @@ def get_text_promothion_parser(items):
     for i in items:
         description = i['desc'].split(sep='.')
         acc.append(f"{i['title'].upper()}\n{description[0]}\n{i['href']}\n")
-    acc_string = '\n\n'.join(acc)
+    acc_string = '\n'.join(acc)
     print(acc_string)
     return acc_string
 

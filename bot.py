@@ -45,19 +45,18 @@ def inline_key(message):
     elif message.text.lower() == 'назад':
         bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'контакты':
-        bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600')
+    elif message.text.lower() == 'новости':
+        bot.send_message(message.chat.id, news_obj_text)
+
+    elif message.text.lower() == 'рестораны и бары':
+        bot.send_message(message.chat.id, restaurant_obj_text)
 
     elif message.text.lower() == 'акции и скидки':
-        for text in obj_text:
-            bot.send_message(message.chat.id, text)
+        bot.send_message(message.chat.id, obj_text)
 
     elif message.text.lower() == 'мероприятия':
         for text in calendar_obj_text:
             bot.send_message(message.chat.id, text)
-
-    elif message.text.lower() == 'рестораны и бары':
-        bot.send_message(message.chat.id, restaurant_obj_text)
 
     elif message.text.lower() == 'бронирование':
         bot.send_message(message.chat.id, 'https://booking.aleanfamily.ru/index.php?hotel=523')
@@ -65,8 +64,8 @@ def inline_key(message):
     elif message.text.lower() == 'трансфер':
         bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
 
-    elif message.text.lower() == 'новости':
-        bot.send_message(message.chat.id, news_obj_text)
+    elif message.text.lower() == 'контакты':
+        bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600')
 
 
 bot.polling()

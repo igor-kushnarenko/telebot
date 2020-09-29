@@ -32,8 +32,9 @@ def get_content(html):
 def get_text_promothion_parser(items):
     acc = []
     for i in items:
-        acc.append(f"{i['title'].upper()}\n{i['desc']} - {i['href']}\n\n")
-    return acc
+        acc.append(f"{i['title'].upper()}\n{i['desc']} - {i['href']}\n")
+    acc_string = '\n'.join(acc)
+    return acc_string
 
 
 html = get_html(URL)
