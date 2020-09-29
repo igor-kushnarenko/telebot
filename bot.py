@@ -17,7 +17,15 @@ def keyboard_menu():
     return keyboard1
 
 
+def transfer_menu():
+    transfer_keyboard = telebot.types.ReplyKeyboardMarkup()
+    transfer_keyboard.row('Бизнес', 'Премиум', 'Минивен')
+    transfer_keyboard.row(('Назад'))
+    return transfer_keyboard
+
+
 main_keyboard = keyboard_menu()
+transfer_keyboard = transfer_menu()
 
 
 @bot.message_handler(commands=['start'])
@@ -33,6 +41,9 @@ def inline_key(message):
 
     elif message.text.lower() == 'пока':
         bot.send_message(message.chat.id, 'До новых встреч!')
+
+    elif message.text.lower() == 'назад':
+        bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
 
     elif message.text.lower() == 'контакты':
         bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600')
@@ -53,7 +64,7 @@ def inline_key(message):
         bot.send_message(message.chat.id, 'https://booking.aleanfamily.ru/index.php?hotel=523')
 
     elif message.text.lower() == 'трансфер':
-        bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797')
+        bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
 
     elif message.text.lower() == 'новости':
         for text in news_obj_text:
