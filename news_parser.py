@@ -17,7 +17,7 @@ def get_html(url, params=''):
 def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
     items = soup.find_all('div', class_='cards__item col-md-4 col-sm-6')
-    print(items)
+    # print(items)
     data = []
 
     for item in items:
@@ -36,11 +36,13 @@ def get_text_news_parser(items):
     acc = []
     for i in items[:3]:
         acc.append(f"{i['title'].upper()}\n{i['date']}\n{i['desc']}\n{i['href']}")
-    return acc
+    acc_string = '\n\n'.join(acc)
+    return acc_string
 
 
 html = get_html(URL)
 items = get_content(html.text)
 news_obj_text = get_text_news_parser(items)
+print(news_obj_text)
 
 

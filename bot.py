@@ -67,8 +67,7 @@ def inline_key(message):
         bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
 
     elif message.text.lower() == 'новости':
-        for text in news_obj_text:
-            bot.send_message(message.chat.id, text)
+        bot.send_message(message.chat.id, news_obj_text)
 
 
 bot.polling()
