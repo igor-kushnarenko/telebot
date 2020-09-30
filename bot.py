@@ -1,11 +1,8 @@
 import telebot
 from telebot.types import Message
 from settings import TOKEN
-from promotion_parser import obj_text
-from restaurant_parser import restaurant_obj_text
-from calendar_parser import calendar_obj_text
-from news_parser import news_obj_text
 from text_data import text_data
+from megaparser import parser_dict
 
 import logging
 log = logging.getLogger('bot')
@@ -99,29 +96,29 @@ def inline_key(message: Message):
         bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
 
     elif message.text.lower() == 'новости':
-        bot.send_message(message.chat.id, news_obj_text, reply_markup=main_keyboard)
+        bot.send_message(message.chat.id, parser_dict['news_parser'], reply_markup=main_keyboard)
 
     elif message.text.lower() == 'рестораны и бары':
         bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
 
     elif message.text.lower() == 'рестораны':
-        bot.send_message(message.chat.id, f'{restaurant_obj_text[0]}\n'
-                                          f'{restaurant_obj_text[1]}\n', reply_markup=restaurant_keyboard)
+        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][0]}\n'
+                                          f'{parser_dict["restaurant_parser"][1]}\n', reply_markup=restaurant_keyboard)
 
     elif message.text.lower() == 'бары':
-        bot.send_message(message.chat.id, f'{restaurant_obj_text[2]}\n'
-                                          f'{restaurant_obj_text[3]}\n'
-                                          f'{restaurant_obj_text[4]}\n'
-                                          f'{restaurant_obj_text[5]}\n', reply_markup=restaurant_keyboard)
+        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][2]}\n'
+                                          f'{parser_dict["restaurant_parser"][3]}\n'
+                                          f'{parser_dict["restaurant_parser"][4]}\n'
+                                          f'{parser_dict["restaurant_parser"][5]}\n', reply_markup=restaurant_keyboard)
 
     elif message.text.lower() == 'детям':
-        bot.send_message(message.chat.id, f'{restaurant_obj_text[6]}\n', reply_markup=restaurant_keyboard)
+        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][6]}\n', reply_markup=restaurant_keyboard)
 
     elif message.text.lower() == 'акции и скидки':
-        bot.send_message(message.chat.id, obj_text, reply_markup=main_keyboard)
+        bot.send_message(message.chat.id, parser_dict['promotion_parser'], reply_markup=main_keyboard)
 
     elif message.text.lower() == 'мероприятия':
-        bot.send_message(message.chat.id, calendar_obj_text, reply_markup=main_keyboard)
+        bot.send_message(message.chat.id, parser_dict['calendar_parser'], reply_markup=main_keyboard)
 
     elif message.text.lower() == 'бронирование':
         bot.send_message(message.chat.id,

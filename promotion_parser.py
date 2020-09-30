@@ -39,4 +39,4 @@ def get_text_promothion_parser(items):
 
 html = get_html(URL)
 items = get_content(html.text)
-obj_text = get_text_promothion_parser(items)
+promotion_obj_text = get_text_promothion_parser(items)
