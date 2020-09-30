@@ -5,14 +5,11 @@ from text_data import text_data
 from megaparser import parser_dict
 import pickle
 
-
-
 import logging
 log = logging.getLogger('bot')
 
 bot = telebot.TeleBot(TOKEN)
 STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
-
 USERS_ID = set()
 
 
