@@ -36,8 +36,8 @@ def get_content(html):
 def get_text_calendar_parser(items):
     current_datetime = datetime.now()
     acc = []
-    for i in items[1:8]:
-        acc.append(f"{i['data']} {i['week_day']}\n{i['title'].upper()}\n")
+    for pos in items[2:9]:
+        acc.append(f"{pos['data']} {pos['week_day']}\n{pos['title'].upper()}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 

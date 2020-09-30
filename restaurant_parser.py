@@ -24,6 +24,7 @@ def get_content(html):
         data.append(
             {
                 'title': item.find('img').get('title'),
+                'period': item.find('span', class_='detail').get_text(strip=True),
                 'desc': item.find('div', class_='caption').get_text(strip=True),
                 'href': HOST + item.find('a', class_='btn btn-block btn-offers').get('href'),
             }
@@ -31,18 +32,16 @@ def get_content(html):
     return data
 
 
-def get_text_promothion_parser(items):
+def get_text_restaurant_parser(items):
     acc = []
-    for i in items:
-        description = i['desc'].split(sep='.')
-        acc.append(f"{i['title'].upper()}\n{description[0]}\n{i['href']}\n")
-    acc_string = '\n'.join(acc)
-    # print(acc_string)
-    return acc_string
+    for pos in items:
+        description = pos['desc'].split(sep='.')
+        acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{description[0]}\n{pos['href']}\n")
+    return acc
 
 
 html = get_html(URL)
 items = get_content(html.text)
-restaurant_obj_text = get_text_promothion_parser(items)
+restaurant_obj_text = get_text_restaurant_parser(items)
 
 
