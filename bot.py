@@ -14,8 +14,6 @@ bot = telebot.TeleBot(TOKEN)
 STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
 
 USERS_ID = set()
-# with open('user_id.pickle', 'wb') as f:
-#     pickle.dump(USERS_ID, f)
 
 
 def configure_logging():
@@ -84,6 +82,7 @@ def inline_key(message: Message):
     for word in text_list:
         if word in text_data['hello_list']:
             answer = 'Добрый день! Для начала работы нажмите /start\nДля помощи, нажмите /help\n'
+
             with open('user_id.pickle', 'rb') as f:
                 USERS_ID = pickle.load(f)
             if message.from_user.id in USERS_ID:
