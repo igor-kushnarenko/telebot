@@ -3,9 +3,19 @@ from telebot.types import Message
 from settings import TOKEN
 from text_data import text_data
 from megaparser import parser_dict
+import pickle
+
+
 
 import logging
 log = logging.getLogger('bot')
+
+bot = telebot.TeleBot(TOKEN)
+STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
+
+USERS_ID = set()
+# with open('user_id.pickle', 'wb') as f:
+#     pickle.dump(USERS_ID, f)
 
 
 def configure_logging():
@@ -14,11 +24,6 @@ def configure_logging():
     file_handler.setLevel(logging.INFO)
     log.addHandler(file_handler)
     log.setLevel(logging.INFO)
-
-
-bot = telebot.TeleBot(TOKEN)
-STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
-USERS_ID = set()
 
 
 def main_keyboard():
@@ -79,11 +84,15 @@ def inline_key(message: Message):
     for word in text_list:
         if word in text_data['hello_list']:
             answer = 'Добрый день! Для начала работы нажмите /start\nДля помощи, нажмите /help\n'
+            with open('user_id.pickle', 'rb') as f:
+                USERS_ID = pickle.load(f)
             if message.from_user.id in USERS_ID:
                 answer = f'Рад видеть Вас снова {message.from_user.first_name}!\n' \
                          f'Для начала работы нажмите /start\nДля помощи, нажмите /help\n'
             bot.send_message(message.chat.id, f'{answer}', reply_markup=main_keyboard)
             USERS_ID.add(message.from_user.id)
+            with open('user_id.pickle', 'wb') as f:
+                pickle.dump(USERS_ID, f)
 
         elif word in text_data['goodbye_list']:
             bot.send_message(message.chat.id, 'До новых встреч!')

@@ -1,2 +1,0 @@
-USERS_ID = set()
-

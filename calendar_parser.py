@@ -21,7 +21,7 @@ def get_content(html):
                                        'calendar-table-item__inner calendar-table-item__inner_simple js-poster-open',
                                        'calendar-table-item__inner calendar-table-item__inner_ js-poster-open',
                                        'calendar-table-item__inner calendar-table-item__inner_holiday js-poster-open', ))
-    print(items)
+    # print(items)
     data = []
     for item in items:
         data.append(
