@@ -8,7 +8,6 @@ from news_parser import news_obj_text
 from text_data import text_data
 
 import logging
-
 log = logging.getLogger('bot')
 
 
@@ -74,8 +73,10 @@ def message_awards(message):
 
 @bot.message_handler(content_types=['text'])
 def inline_key(message: Message):
+
     log.info(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
     print(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
+
     text = message.text.lower()
     text_list = text.split(' ')
     for word in text_list:
@@ -91,7 +92,7 @@ def inline_key(message: Message):
             bot.send_message(message.chat.id, 'До новых встреч!')
 
         elif word in text_data['eat_list']:
-            bot.send_message(message.chat.id, f'Вы можете пообедать в одном из наших заведений:\n\n',
+            bot.send_message(message.chat.id, f'Вы можете выбрать одно из наших заведений:\n\n',
                              reply_markup=restaurant_keyboard)
 
     if message.text.lower() == '🔙 назад':
@@ -136,6 +137,7 @@ def inline_key(message: Message):
 @bot.message_handler(content_types=['sticker'])
 def send_sticker(message: Message):
     bot.send_sticker(message.chat.id, STICKER_ID)
+
 
 configure_logging()
 bot.polling()
