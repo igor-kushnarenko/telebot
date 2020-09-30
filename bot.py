@@ -6,7 +6,7 @@ from promotion_parser import obj_text
 from restaurant_parser import restaurant_obj_text
 from calendar_parser import calendar_obj_text
 from news_parser import news_obj_text
-from text_data import hello_list, gooby_list
+from text_data import text_data
 
 bot = telebot.TeleBot(TOKEN)
 STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
@@ -50,26 +50,12 @@ back_keyboard = back_keyboard()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id,
-                         'Что умеет этот бот?\n'
-                         'Привет, я инфо-бот Alean Family Resort & SPA Doville!\n'
-                         'С моей помощью, Вы можете узнать о ближайших мероприятиях отеля, '
-                         'узнать последние новости, заказать услуги и многое другое!\n'
-                         'Для начала нашего общения, нажмите МЕНЮ.\n\n'
-                         '----------------------------------------\n'
-                         '🎉 Поддержите нас в номинации международной премии World Luxury Hotel Awards!!! 🎉 \n'
-                         'Для этого нажмите /awards',
-                         reply_markup=main_keyboard)
+    bot.send_message(message.chat.id, text_data['instruction']['start'], reply_markup=main_keyboard)
 
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-    bot.send_message(message.chat.id,
-                         '1) Для начала работы со мной, нажмите на значёк клавиатуры рядом с полем для ввода.\n\n '
-                         '2) С помощью данной клавиатуры, Вы можете со мной взаимодействовать.\n\n'
-                         '3) Вы так же моежете задавать мне вопросы в свободной форме, '
-                         'я обязательно постараюсь Вам помочь!',
-                         reply_markup=main_keyboard)
+    bot.send_message(message.chat.id, text_data['instruction']['help'], reply_markup=main_keyboard)
 
 
 @bot.message_handler(commands=['awards'])
@@ -90,50 +76,59 @@ def message_awards(message):
 
 @bot.message_handler(content_types=['text'])
 def inline_key(message: Message):
-    if message.text.lower() in hello_list:
-        print(message.from_user.first_name)
-        answer = 'Добрый день! Для начала работы нажмите /start\n Для помощи, нажмите /help\n'
-        if message.from_user.id in USERS_ID:
-            answer = f'Рад видеть Вас снова {message.from_user.first_name}!\n{answer}'
-        bot.send_message(message.chat.id, f'{answer}', reply_markup=main_keyboard)
-        USERS_ID.add(message.from_user.id)
+    text = message.text.lower()
+    text_list = text.split(' ')
+    print(text_list)
+    for word in text_list:
 
-    elif message.text.lower() in gooby_list:
-        bot.send_message(message.chat.id, 'До новых встреч!')
+        if word in text_data['hello_list']:
+            answer = 'Добрый день! Для начала работы нажмите /start\nДля помощи, нажмите /help\n'
+            if message.from_user.id in USERS_ID:
+                answer = f'Рад видеть Вас снова {message.from_user.first_name}!\n' \
+                         f'Для начала работы нажмите /start\nДля помощи, нажмите /help\n'
+            bot.send_message(message.chat.id, f'{answer}', reply_markup=main_keyboard)
+            USERS_ID.add(message.from_user.id)
 
-    elif message.text.lower() == 'назад':
-        bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
+        elif word in text_data['goodbye_list']:
+            bot.send_message(message.chat.id, 'До новых встреч!')
 
-    elif message.text.lower() == 'новости':
-        bot.send_message(message.chat.id, news_obj_text, reply_markup=main_keyboard)
+        elif word in text_data['eat_list']:
+            bot.send_message(message.chat.id, f'Вы можете пообедать в одном из наших заведений:\n\n'
+                                              f' {restaurant_obj_text}', reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'рестораны и бары':
-        bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
+        elif message.text.lower() == 'назад':
+            bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'рестораны':
-        bot.send_message(message.chat.id, restaurant_obj_text[:375], reply_markup=restaurant_keyboard)
+        elif message.text.lower() == 'новости':
+            bot.send_message(message.chat.id, news_obj_text, reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'бары':
-        bot.send_message(message.chat.id, 'Бары', reply_markup=restaurant_keyboard)
+        elif message.text.lower() == 'рестораны и бары':
+            bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'детям':
-        bot.send_message(message.chat.id, 'Детям', reply_markup=restaurant_keyboard)
+        elif message.text.lower() == 'рестораны':
+            bot.send_message(message.chat.id, restaurant_obj_text[:375], reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'акции и скидки':
-        bot.send_message(message.chat.id, obj_text, reply_markup=main_keyboard)
+        elif message.text.lower() == 'бары':
+            bot.send_message(message.chat.id, 'Бары', reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'мероприятия':
-        bot.send_message(message.chat.id, calendar_obj_text, reply_markup=main_keyboard)
+        elif message.text.lower() == 'детям':
+            bot.send_message(message.chat.id, 'Детям', reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'бронирование':
-        bot.send_message(message.chat.id, 'https://booking.aleanfamily.ru/index.php?hotel=523',
-                         reply_markup=main_keyboard)
+        elif message.text.lower() == 'акции и скидки':
+            bot.send_message(message.chat.id, obj_text, reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'трансфер':
-        bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
+        elif message.text.lower() == 'мероприятия':
+            bot.send_message(message.chat.id, calendar_obj_text, reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'контакты':
-        bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600', reply_markup=main_keyboard)
+        elif message.text.lower() == 'бронирование':
+            bot.send_message(message.chat.id,
+                             'https://booking.aleanfamily.ru/index.php?hotel=523', reply_markup=main_keyboard)
+
+        elif message.text.lower() == 'трансфер':
+            bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
+
+        elif message.text.lower() == 'контакты':
+            bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600', reply_markup=main_keyboard)
 
 
 @bot.message_handler(content_types=['sticker'])
