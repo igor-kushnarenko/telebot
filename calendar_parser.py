@@ -21,6 +21,7 @@ def get_content(html):
                                        'calendar-table-item__inner calendar-table-item__inner_simple js-poster-open',
                                        'calendar-table-item__inner calendar-table-item__inner_ js-poster-open',
                                        'calendar-table-item__inner calendar-table-item__inner_holiday js-poster-open', ))
+    print(items)
     data = []
     for item in items:
         data.append(
@@ -37,8 +38,9 @@ def get_text_calendar_parser(items):
     current_datetime = datetime.now()
     acc = []
     for pos in items[2:9]:
-        acc.append(f"{pos['data']} {pos['week_day']}\n{pos['title'].upper()}\n")
+        acc.append(f"{pos['data']}, {pos['week_day']} - '{pos['title'].upper()}'\n")
     acc_string = '\n'.join(acc)
+    # print(acc_string)
     return acc_string
 
 
