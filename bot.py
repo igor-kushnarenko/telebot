@@ -1,12 +1,24 @@
 import telebot
 from telebot.types import Message
-
 from settings import TOKEN
 from promotion_parser import obj_text
 from restaurant_parser import restaurant_obj_text
 from calendar_parser import calendar_obj_text
 from news_parser import news_obj_text
 from text_data import text_data
+
+import logging
+
+log = logging.getLogger('bot')
+
+
+def configure_logging():
+    file_handler = logging.FileHandler('bot.log')
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%Y-%m-%d %H:%M'))
+    file_handler.setLevel(logging.INFO)
+    log.addHandler(file_handler)
+    log.setLevel(logging.INFO)
+
 
 bot = telebot.TeleBot(TOKEN)
 STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
@@ -62,6 +74,8 @@ def message_awards(message):
 
 @bot.message_handler(content_types=['text'])
 def inline_key(message: Message):
+    log.info(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
+    print(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
     text = message.text.lower()
     text_list = text.split(' ')
     for word in text_list:
@@ -77,8 +91,8 @@ def inline_key(message: Message):
             bot.send_message(message.chat.id, 'До новых встреч!')
 
         elif word in text_data['eat_list']:
-            bot.send_message(message.chat.id, f'Вы можете пообедать в одном из наших заведений:\n\n'
-                                              f' {restaurant_obj_text}', reply_markup=restaurant_keyboard)
+            bot.send_message(message.chat.id, f'Вы можете пообедать в одном из наших заведений:\n\n',
+                             reply_markup=restaurant_keyboard)
 
     if message.text.lower() == '🔙 назад':
         bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
@@ -123,5 +137,5 @@ def inline_key(message: Message):
 def send_sticker(message: Message):
     bot.send_sticker(message.chat.id, STICKER_ID)
 
-
+configure_logging()
 bot.polling()
