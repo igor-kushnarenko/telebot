@@ -1,54 +1,22 @@
-import logging
 import pickle
 
 import telebot
 from telebot.types import Message
 
 from parsers.megaparser import parser_dict
+from sripts import keyboards
 from settings import TOKEN
+from sripts.logging import log, configure_logging
 from text_data import text_data
 
-log = logging.getLogger('bot')
 
 bot = telebot.TeleBot(TOKEN)
-STICKER_ID = 'CAACAgIAAxkBAAIHil90PAYckRQQH9qx1DfDZkgQiYZFAAI3AAPRYSgLtg532um5J84bBA'
+
 USERS_ID = set()
 
-
-def configure_logging():
-    file_handler = logging.FileHandler('bot.log')
-    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s', '%Y-%m-%d %H:%M'))
-    file_handler.setLevel(logging.INFO)
-    log.addHandler(file_handler)
-    log.setLevel(logging.INFO)
-
-
-def main_keyboard():
-    keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard1.row('Новости')
-    keyboard1.row('Акции и скидки', 'Рестораны и бары')
-    keyboard1.row('Трансфер', 'Контакты')
-    keyboard1.row('Мероприятия')
-    return keyboard1
-
-
-def transfer_keyboard():
-    keyboard = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('Бизнес', 'Премиум', 'Минивен')
-    keyboard.row(('🔙 Назад'))
-    return keyboard
-
-
-def restarurant_keyboard():
-    keyboard = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('Рестораны', 'Бары', 'Детям')
-    keyboard.row(('🔙 Назад'))
-    return keyboard
-
-
-main_keyboard = main_keyboard()
-transfer_keyboard = transfer_keyboard()
-restaurant_keyboard = restarurant_keyboard()
+main_keyboard = keyboards.main_keyboard()
+transfer_keyboard = keyboards.transfer_keyboard()
+restaurant_keyboard = keyboards.restarurant_keyboard()
 
 
 @bot.message_handler(commands=['start'])
@@ -74,7 +42,6 @@ def message_awards(message):
 def inline_key(message: Message):
 
     log.info(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
-    print(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
 
     text = message.text.lower()
     text_list = text.split(' ')
@@ -102,8 +69,9 @@ def inline_key(message: Message):
     if message.text.lower() == '🔙 назад':
         bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'новости':
-        bot.send_message(message.chat.id, parser_dict['news_parser'], reply_markup=main_keyboard)
+    elif message.text.lower() == '📰 новости':
+        bot.send_message(message.chat.id, parser_dict['news_parser'], reply_markup=main_keyboard,
+                         disable_web_page_preview=True)
 
     elif message.text.lower() == 'рестораны и бары':
         bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
@@ -121,8 +89,9 @@ def inline_key(message: Message):
     elif message.text.lower() == 'детям':
         bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][6]}\n', reply_markup=restaurant_keyboard)
 
-    elif message.text.lower() == 'акции и скидки':
-        bot.send_message(message.chat.id, parser_dict['promotion_parser'], reply_markup=main_keyboard)
+    elif message.text.lower() == '❇️ акции и скидки':
+        bot.send_message(message.chat.id, parser_dict['promotion_parser'], reply_markup=main_keyboard,
+                         disable_web_page_preview=True)
 
     elif message.text.lower() == 'мероприятия':
         bot.send_message(message.chat.id, parser_dict['calendar_parser'], reply_markup=main_keyboard)
@@ -132,11 +101,6 @@ def inline_key(message: Message):
 
     elif message.text.lower() == 'контакты':
         bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600', reply_markup=main_keyboard)
-
-
-@bot.message_handler(content_types=['sticker'])
-def send_sticker(message: Message):
-    bot.send_sticker(message.chat.id, STICKER_ID)
 
 
 configure_logging()
