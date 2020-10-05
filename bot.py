@@ -4,7 +4,7 @@ import pickle
 import telebot
 from telebot.types import Message
 
-from megaparser import parser_dict
+from parsers.megaparser import parser_dict
 from settings import TOKEN
 from text_data import text_data
 
