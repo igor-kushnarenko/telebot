@@ -1,11 +1,13 @@
-import telebot
-from telebot.types import Message
-from settings import TOKEN
-from text_data import text_data
-from megaparser import parser_dict
+import logging
 import pickle
 
-import logging
+import telebot
+from telebot.types import Message
+
+from megaparser import parser_dict
+from settings import TOKEN
+from text_data import text_data
+
 log = logging.getLogger('bot')
 
 bot = telebot.TeleBot(TOKEN)
@@ -25,7 +27,7 @@ def main_keyboard():
     keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
     keyboard1.row('Новости')
     keyboard1.row('Акции и скидки', 'Рестораны и бары')
-    keyboard1.row('Трансфер', 'Контакты', 'Бронирование',)
+    keyboard1.row('Трансфер', 'Контакты')
     keyboard1.row('Мероприятия')
     return keyboard1
 
@@ -124,10 +126,6 @@ def inline_key(message: Message):
 
     elif message.text.lower() == 'мероприятия':
         bot.send_message(message.chat.id, parser_dict['calendar_parser'], reply_markup=main_keyboard)
-
-    elif message.text.lower() == 'бронирование':
-        bot.send_message(message.chat.id,
-                         'https://booking.aleanfamily.ru/index.php?hotel=523', reply_markup=main_keyboard)
 
     elif message.text.lower() == 'трансфер':
         bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
