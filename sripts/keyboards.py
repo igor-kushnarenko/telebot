@@ -1,17 +1,10 @@
-import telebot
+from telebot import types
 
 
 def main_keyboard():
-    keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard1.row('📰 Новости')
-    keyboard1.row('❇️ Акции и скидки', '🍽️ Рестораны и бары')
-    keyboard1.row('🔔 Услуги', '🗨️ Контакты')
-    keyboard1.row('🎪 Мероприятия')
-    return keyboard1
-
-
-def restarurant_keyboard():
-    keyboard = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('Рестораны', 'Бары', 'Детям')
-    keyboard.row(('🔙 Назад'))
+    keyboard = types.ReplyKeyboardMarkup(True, True)
+    keyboard.row('📰 Новости')
+    keyboard.row('❇️ Акции и скидки', '🍽️ Питание')
+    keyboard.row('🔔 Услуги', '🗨️ Контакты')
+    keyboard.row('🎪 Мероприятия')
     return keyboard

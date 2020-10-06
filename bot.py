@@ -2,6 +2,7 @@ import pickle
 
 import telebot
 from telebot.types import Message
+from telebot import types
 
 from parsers.megaparser import parser_dict
 from sripts import keyboards
@@ -15,12 +16,15 @@ bot = telebot.TeleBot(TOKEN)
 USERS_ID = set()
 
 main_keyboard = keyboards.main_keyboard()
-restaurant_keyboard = keyboards.restarurant_keyboard()
+
 
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, text_data['instruction']['start'], reply_markup=main_keyboard)
+
+
+
 
 
 @bot.message_handler(commands=['help'])
@@ -30,11 +34,14 @@ def send_help(message):
 
 @bot.message_handler(commands=['awards'])
 def message_awards(message):
-    keyboard = telebot.types.InlineKeyboardMarkup()
-    keyboard.add(telebot.types.InlineKeyboardButton(
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton(
         'Проголосовать', url='https://www.luxuryhotelawards.com/hotel/alean-family-resort-spa-doville/'))
     bot.send_message(
         message.chat.id, text_data['awards'], reply_markup=keyboard)
+
+
+
 
 
 @bot.message_handler(content_types=['text'])
@@ -61,42 +68,33 @@ def inline_key(message: Message):
         elif word in text_data['goodbye_list']:
             bot.send_message(message.chat.id, 'До новых встреч!')
 
-        elif word in text_data['eat_list']:
-            bot.send_message(message.chat.id, f'Вы можете выбрать одно из наших заведений:\n\n',
-                             reply_markup=restaurant_keyboard)
+    if message.text == '🍽️ Питание':
+        keyboard_inline = types.InlineKeyboardMarkup()
+        item_normandie = types.InlineKeyboardButton(text='Ресторан "Normandie"', callback_data='normandie')
+        item_san_michel = types.InlineKeyboardButton(text='Ресторан "Saint Michel"', callback_data='san_michel')
+        item_bon_appetit = types.InlineKeyboardButton(text='Снек-бар "Bon appetit"', callback_data='bon_appetit')
+        item_marinie = types.InlineKeyboardButton(text='Снек-бар "Marinie"', callback_data='marinie')
+        item_le_paradis = types.InlineKeyboardButton(text='Снек-бар "le Paradis"', callback_data='le_paradis')
+        item_caramel = types.InlineKeyboardButton(text='Детское кафе "Карамелька"', callback_data='caramel')
+        keyboard_inline.add(
+            item_normandie, item_san_michel, item_bon_appetit,
+            item_marinie, item_caramel, item_le_paradis, row_width=2)
+        bot.send_message(message.chat.id, 'Выберите заведение', reply_markup=keyboard_inline)
 
-    if message.text.lower() == '🔙 назад':
-        bot.send_message(message.chat.id, 'Главное меню', reply_markup=main_keyboard)
-
-    elif message.text.lower() == '📰 новости':
+    elif message.text == '📰 Новости':
         bot.send_message(message.chat.id, parser_dict['news_parser'], reply_markup=main_keyboard,
                          disable_web_page_preview=True)
 
-    elif message.text.lower() == '🍽️ рестораны и бары':
-        bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
-
-    elif message.text.lower() == 'рестораны':
-        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][0]}\n'
-                                          f'{parser_dict["restaurant_parser"][1]}\n', reply_markup=restaurant_keyboard)
-
-    elif message.text.lower() == 'бары':
-        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][2]}\n'
-                                          f'{parser_dict["restaurant_parser"][3]}\n'
-                                          f'{parser_dict["restaurant_parser"][4]}\n'
-                                          f'{parser_dict["restaurant_parser"][5]}\n', reply_markup=restaurant_keyboard)
-
-    elif message.text.lower() == 'детям':
-        bot.send_message(message.chat.id, f'{parser_dict["restaurant_parser"][6]}\n', reply_markup=restaurant_keyboard)
-
-    elif message.text.lower() == '❇️ акции и скидки':
+    elif message.text == '❇️ Акции и скидки':
         bot.send_message(message.chat.id, parser_dict['promotion_parser'], reply_markup=main_keyboard,
                          disable_web_page_preview=True)
 
-    elif message.text.lower() == '🎪 мероприятия':
+    elif message.text == '🎪 Мероприятия':
         bot.send_message(message.chat.id, parser_dict['calendar_parser'], reply_markup=main_keyboard)
 
-    elif message.text.lower() == '🗨️ контакты':
+    elif message.text == '🗨️ Контакты':
         bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600', reply_markup=main_keyboard)
+
 
 
 configure_logging()
