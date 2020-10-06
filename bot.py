@@ -15,7 +15,6 @@ bot = telebot.TeleBot(TOKEN)
 USERS_ID = set()
 
 main_keyboard = keyboards.main_keyboard()
-transfer_keyboard = keyboards.transfer_keyboard()
 restaurant_keyboard = keyboards.restarurant_keyboard()
 
 
@@ -73,7 +72,7 @@ def inline_key(message: Message):
         bot.send_message(message.chat.id, parser_dict['news_parser'], reply_markup=main_keyboard,
                          disable_web_page_preview=True)
 
-    elif message.text.lower() == 'рестораны и бары':
+    elif message.text.lower() == '🍽️ рестораны и бары':
         bot.send_message(message.chat.id, 'Рестораны и бары', reply_markup=restaurant_keyboard)
 
     elif message.text.lower() == 'рестораны':
@@ -93,13 +92,10 @@ def inline_key(message: Message):
         bot.send_message(message.chat.id, parser_dict['promotion_parser'], reply_markup=main_keyboard,
                          disable_web_page_preview=True)
 
-    elif message.text.lower() == 'мероприятия':
+    elif message.text.lower() == '🎪 мероприятия':
         bot.send_message(message.chat.id, parser_dict['calendar_parser'], reply_markup=main_keyboard)
 
-    elif message.text.lower() == 'трансфер':
-        bot.send_message(message.chat.id, 'Заказать трансфер: 88002507797', reply_markup=transfer_keyboard)
-
-    elif message.text.lower() == 'контакты':
+    elif message.text.lower() == '🗨️ контакты':
         bot.send_message(message.chat.id, 'Звоните по номеру: 8800200600', reply_markup=main_keyboard)
 
 
