@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-URL = 'https://dovilleresort.ru/afisha/?date=1601510400'
+URL = 'https://dovilleresort.ru/afisha/?date=1604188800'
 HOST = 'https://dovilleresort.ru/'
 HEADERS = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -37,7 +37,7 @@ def get_content(html):
 def get_text_calendar_parser(items):
     current_datetime = datetime.now()
     acc = []
-    for pos in items[7:14]:
+    for pos in items[18:25]:
         acc.append(f"{pos['data']}, {pos['week_day']} - '{pos['title'].upper()}'\n")
     acc_string = '\n'.join(acc)
     # print(acc_string)

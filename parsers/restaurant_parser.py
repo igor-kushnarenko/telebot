@@ -29,19 +29,25 @@ def get_content(html):
                 'href': HOST + item.find('a', class_='btn btn-block btn-offers').get('href'),
             }
         )
+    # print(data)
     return data
 
 
 def get_text_restaurant_parser(items):
+    block_content = ['Снек-бар Bon appetit', 'Снек-бар на пляже Le Paradis', 'Детское кафе Карамелька', ]
     acc = []
     for pos in items:
-        description = pos['desc'].split(sep='.')
-        acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{description[0]}\n{pos['href']}\n")
-    return acc
+        if pos['title'] not in block_content:
+            description = pos['desc'].split(sep='.')
+            acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{description[0]}\n{pos['href']}\n")
+    # print(acc)
+    acc_string = '\n'.join(acc)
+    return acc_string
 
 
 html = get_html(URL)
 items = get_content(html.text)
 restaurant_obj_text = get_text_restaurant_parser(items)
+# print(restaurant_obj_text)
 
 

@@ -1,12 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+import fake_useragent
 
 HOST = 'https://dovilleresort.ru/'
 URL = 'https://dovilleresort.ru/news/'
-HEADERS = {
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'user_agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'
-}
+user = fake_useragent.FakeUserAgent().random
+HEADERS = {'user_agent': user}
 
 
 def get_html(url, params=''):
