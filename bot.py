@@ -1,4 +1,3 @@
-import pickle
 import telebot
 from telebot.types import Message
 from telebot import types
@@ -41,6 +40,9 @@ def inline_key(message: Message):
 
     elif message.text == '🌐 Связь с нами':
         bot.send_message(message.chat.id, text_data['contacts'], reply_markup=main_keyboard,
+                         disable_web_page_preview=True)
+    else:
+        bot.send_message(message.chat.id, text_data['instruction']['help'], reply_markup=main_keyboard,
                          disable_web_page_preview=True)
 
 
