@@ -1,5 +1,5 @@
 from parsers.calendar_parser import calendar_obj_text
-from parsers.news_parser import news_obj_text
+# from parsers.news_parser import news_obj_text
 from parsers.promotion_parser import promotion_obj_text
 from parsers.restaurant_parser import restaurant_obj_text
 
