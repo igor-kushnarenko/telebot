@@ -14,7 +14,14 @@ text_data = {
             'С помощью данной клавиатуры, Вы можете со мной взаимодействовать.\n\n'
             'Либо нажмите /start'
     },
-    'contacts': '📞 8800200600\n'
-                'VK: https://clck.ru/MfMLL\n'
-                'Instagram: https://clck.ru/MfMMd'
+    'contacts': 'ПОЗВОНИТЕ НАМ\n'
+                '☎️ Call-центр: 8800200600\n'
+                '\n'
+                'НАШИ СОЦСЕТИ\n'
+                '🔗 Группа в VK: https://clck.ru/MfMLL\n'
+                '🔗 Instagram: https://clck.ru/MfMMd\n',
+    'services': '🛍️ Магазины:\n https://dovilleresort.ru/about/services/magazini/\n'
+                '🅿️ Парковка:\n https://dovilleresort.ru/about/services/parking/\n'
+                '🥘 Рум-сервис: \n https://dovilleresort.ru/about/services/room-service/\n'
+                '💼 Консьерж: \n https://dovilleresort.ru/about/services/consierge/\n',
 }

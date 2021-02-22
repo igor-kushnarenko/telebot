@@ -33,8 +33,12 @@ def get_content(html):
 
 def get_text_promothion_parser(items):
     acc = []
+    counter = 0
     for i in items:
+        counter += 1
         acc.append(f"{i['title'].upper()}\n{i['desc']} - {i['href']}\n")
+        if counter >= 3:
+            break
     acc_string = '\n'.join(acc)
     return acc_string
 

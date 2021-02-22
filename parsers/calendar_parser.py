@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import fake_useragent
 
-URL = 'https://dovilleresort.ru/afisha/?date=1604188800'
+URL = 'https://dovilleresort.ru/afisha/?date=1612137600'
 HOST = 'https://dovilleresort.ru/'
 user = fake_useragent.FakeUserAgent().random
 
@@ -40,7 +40,7 @@ def get_content(html):
 def get_text_calendar_parser(items):
     current_datetime = datetime.now()
     acc = []
-    for pos in items[22:29]:
+    for pos in items[3:10]:
         acc.append(f"{pos['data']}, {pos['week_day']} - '{pos['title'].upper()}'\n")
     acc_string = '\n'.join(acc)
     # print(acc_string)
