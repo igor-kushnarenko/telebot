@@ -1,7 +1,9 @@
+import fake_useragent
 import requests
 from bs4 import BeautifulSoup
-import fake_useragent
+
 from rest_period_parser import time_dict
+
 
 HOST = 'https://dovilleresort.ru'
 URL = 'https://dovilleresort.ru/restaurant/'
@@ -37,7 +39,11 @@ def get_content(html):
 
 
 def get_text_restaurant_parser(items):
-    block_content = ['Снек-бар Bon appetit', 'Снек-бар на пляже Le Paradis', 'Детское кафе Карамелька', ]
+    block_content = [
+        'Снек-бар Bon appetit',
+        'Снек-бар на пляже Le Paradis',
+        'Детское кафе Карамелька',
+    ]
     acc = []
     for name, time in time_dict.items():
         for pos in items:
@@ -50,9 +56,44 @@ def get_text_restaurant_parser(items):
     return acc_string
 
 
+def get_rest_list(items):
+    restraunt_list = [
+        'Ресторан Normandie',
+        'Гастрономический ресторан Saint Michel',
+    ]
+    acc = []
+    for name, time in time_dict.items():
+        for pos in items:
+            if pos['title'] in restraunt_list:
+                if pos['title'].upper() == name:
+                    description = pos['desc'].split(sep='.')
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+    acc_string = '\n'.join(acc)
+    return acc_string
+
+
+def get_bar_list(items):
+    bar_list = [
+        'DISCO BAR',
+        'Снек-бар Marinie',
+        'Lobby Bar',
+    ]
+    acc = []
+    for name, time in time_dict.items():
+        for pos in items:
+            if pos['title'] in bar_list:
+                if pos['title'].upper() == name:
+                    description = pos['desc'].split(sep='.')
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+    acc_string = '\n'.join(acc)
+    return acc_string
+
+
 html = get_html(URL)
 items = get_content(html.text)
 restaurant_obj_text = get_text_restaurant_parser(items)
+rest_list = get_rest_list(items)
+bar_list = get_bar_list(items)
 # print(restaurant_obj_text)
 
 
