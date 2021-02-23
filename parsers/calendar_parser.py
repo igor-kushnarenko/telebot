@@ -1,7 +1,11 @@
+import datetime
+
 import requests
-from bs4 import BeautifulSoup
-from datetime import datetime
 import fake_useragent
+
+from bs4 import BeautifulSoup
+from rutimeparser import parse
+
 
 URL = 'https://dovilleresort.ru/afisha/?date=1612137600'
 HOST = 'https://dovilleresort.ru/'
@@ -20,30 +24,41 @@ def get_html(url):
 
 def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
-    items = soup.find_all('a', class_=('calendar-table-item__inner calendar-table-item__inner_thematic js-poster-open',
-                                       'calendar-table-item__inner calendar-table-item__inner_simple js-poster-open',
-                                       'calendar-table-item__inner calendar-table-item__inner_ js-poster-open',
-                                       'calendar-table-item__inner calendar-table-item__inner_holiday js-poster-open', ))
-    # print(items)
+    items = soup.find_all('a', class_=(
+        'calendar-table-item__inner calendar-table-item__inner_thematic js-poster-open',
+        'calendar-table-item__inner calendar-table-item__inner_simple js-poster-open',
+        'calendar-table-item__inner calendar-table-item__inner_ js-poster-open',
+        'calendar-table-item__inner calendar-table-item__inner_holiday js-poster-open',
+    ))
     data = []
     for item in items:
         data.append(
             {
-                'data': item.find('span', class_='js-poster-date').get_text(strip=True),
-                'week_day': item.find('div', class_='calendar-table-item__weekday js-poster-week').get_text(strip=True),
-                'title': item.find('div', class_='calendar-table-item__title').get_text(strip=True),
+                'data': item.find(
+                    'span',
+                    class_='js-poster-date').get_text(strip=True),
+                'week_day': item.find(
+                    'div',
+                    class_='calendar-table-item__weekday js-poster-week').get_text(strip=True),
+                'title': item.find(
+                    'div',
+                    class_='calendar-table-item__title').get_text(strip=True),
             }
         )
     return data
 
 
 def get_text_calendar_parser(items):
-    current_datetime = datetime.now()
+    current_datetime = datetime.date.today()
     acc = []
-    for pos in items[3:10]:
-        acc.append(f"{pos['data']}, {pos['week_day']} - '{pos['title'].upper()}'\n")
+    counter_day = 0
+    for pos in items:
+        if parse(pos['data']) == current_datetime + datetime.timedelta(days=counter_day):
+            acc.append(f"{pos['data']}, {pos['week_day']} - '{pos['title'].upper()}'\n")
+            counter_day += 1
+            if counter_day > 7:
+                break
     acc_string = '\n'.join(acc)
-    # print(acc_string)
     return acc_string
 
 

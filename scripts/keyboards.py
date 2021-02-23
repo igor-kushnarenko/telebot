@@ -3,16 +3,15 @@ from telebot import types
 
 def main_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('❇️ Акции и скидки')
-    keyboard.row('🔔 Услуги', '🌐 Связь с нами')
-    keyboard.row('🎪 Мероприятия', '🍽️ Питание')
+    keyboard.row('🎪 Мероприятия')
+    keyboard.row('🍽️ Питание', '🔔 Услуги')
+    keyboard.row('❇️ Акции и скидки', '🌐 Связь с нами')
     return keyboard
 
 
 def food_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('🍽️ Рестораны')
-    keyboard.row('🍸 Бары', '🌭 Снек-бары')
-    keyboard.row('🍨 Детям')
+    keyboard.row('🍽️ Рестораны', '🍸 Бары')
+    keyboard.row('🌭 Снек-бары', '🍨 Детям')
     keyboard.row('🔙 Назад')
     return keyboard
