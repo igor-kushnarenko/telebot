@@ -1,15 +1,16 @@
+import sys
+import time
+
 import telebot
 from telebot.types import Message
 
 import schedule_img
 
-from add_user import add_user
 from parsers.megaparser import parser_dict
 from scripts import keyboards
 from settings import TOKEN
 from scripts.logg import log, configure_logging
 from text_data import text_data
-
 
 bot = telebot.TeleBot(TOKEN)
 main_keyboard = keyboards.main_keyboard()
@@ -169,18 +170,6 @@ def inline_key(message: Message):
             reply_markup=main_keyboard,
         )
 
-    # заготовка для статистикаи бота
-    # if message.text[:10] == 'статистика' or message.text[:10] == 'Cтатистика':
-    #     st = message.text.split(' ')
-    #     if 'txt' in st or 'тхт' in st:
-    #         tg_analytic.analysis(st,message.chat.id)
-    #         with open('%s.txt' %message.chat.id ,'r',encoding='UTF-8') as file:
-    #             bot.send_document(message.chat.id,file)
-    #         tg_analytic.remove(message.chat.id)
-    #     else:
-    #         messages = tg_analytic.analysis(st,message.chat.id)
-    #         bot.send_message(message.chat.id, messages)
-
     else:
         bot.send_message(
             message.chat.id,
@@ -190,5 +179,16 @@ def inline_key(message: Message):
         )
 
 
-configure_logging()
-bot.polling()
+def main_loop():
+    bot.polling(True)
+    while 1:
+        time.sleep(3)
+
+
+if __name__ == '__main__':
+    configure_logging()
+    try:
+        main_loop()
+    except KeyboardInterrupt:
+        print('\nExiting by user request.\n')
+        sys.exit(0)
