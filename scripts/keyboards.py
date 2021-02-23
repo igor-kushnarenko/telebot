@@ -20,5 +20,6 @@ def food_keyboard():
 def schedule_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('7️⃣ Расписание на 7 дней')
+    keyboard.row('Студия 3D-моделирования')
     keyboard.row('🔙 Назад')
     return keyboard

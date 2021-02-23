@@ -1,6 +1,8 @@
 import telebot
 from telebot.types import Message
 
+import schedule_img
+
 from add_user import add_user
 from parsers.megaparser import parser_dict
 from scripts import keyboards
@@ -93,6 +95,22 @@ def inline_key(message: Message):
             text=parser_dict['calendar_parser'],
             reply_markup=schedule_keyboard,
         )
+    elif message.text == 'Студия 3D-моделирования':
+        IMAGE_NAME = 'media_studio.jpg'
+        file = schedule_img.schedule_open_img(IMAGE_NAME)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
 
     elif message.text == '🌐 Связь с нами':
         bot.send_message(
