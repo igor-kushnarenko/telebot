@@ -40,6 +40,7 @@ def send_help(message):
 def inline_key(message: Message):
     log.info(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
 
+    # ПИТАНИЕ
     if message.text == '🍽️ Питание':
         bot.send_message(
             message.chat.id,
@@ -75,15 +76,8 @@ def inline_key(message: Message):
             disable_web_page_preview=True,
         )
 
-    elif message.text == '❇️ Акции и скидки':
-        bot.send_message(
-            message.chat.id,
-            text=parser_dict['promotion_parser'],
-            reply_markup=main_keyboard,
-            disable_web_page_preview=True,
-        )
-
-    elif message.text == '🎪 Мероприятия':
+    # РАСПИСАНИЕ
+    elif message.text == '🗓️ Расписание мероприятий':
         bot.send_message(
             message.chat.id,
             text='Выберите расписание:',
@@ -95,7 +89,23 @@ def inline_key(message: Message):
             text=parser_dict['calendar_parser'],
             reply_markup=schedule_keyboard,
         )
-    elif message.text == 'Студия 3D-моделирования':
+    elif message.text == '🎆 Вечерние мероприятия':
+        image_name = 'animation_week.jpg'
+        file = schedule_img.schedule_open_img(image_name)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
+    elif message.text == '💻 Студия 3D-моделирования':
         IMAGE_NAME = 'media_studio.jpg'
         file = schedule_img.schedule_open_img(IMAGE_NAME)
         try:
@@ -111,6 +121,30 @@ def inline_key(message: Message):
                 text='Расписание не найдено',
                 reply_markup=schedule_keyboard,
             )
+    elif message.text == '🥗 Кулинарный мастер-класс':
+        IMAGE_NAME = 'kulinarny_master_class.jpg'
+        file = schedule_img.schedule_open_img(IMAGE_NAME)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
+
+    elif message.text == '❇️ Акции и скидки':
+        bot.send_message(
+            message.chat.id,
+            text=parser_dict['promotion_parser'],
+            reply_markup=main_keyboard,
+            disable_web_page_preview=True,
+        )
 
     elif message.text == '🌐 Связь с нами':
         bot.send_message(
