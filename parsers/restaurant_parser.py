@@ -13,25 +13,24 @@ HEADERS = {
     'user_agent': user
 }
 
-food_point_dict = {
-    'rest_list': [
+food_point_lists = [
+    [
         'Ресторан Normandie',
         'Гастрономический ресторан Saint Michel',
     ],
-    'bar_list': [
+    [
         'Disco bar',
         'Lobby bar',
     ],
-    'child_list': [
+    [
         'Детское кафе Карамелька',
     ],
-    'sneck_list': [
+    [
         'Снек-бар Marinie',
         'Снек-бар Bon appetit',
         'Снек-бар на пляже Le Paradis',
-
-    ],
-}
+    ]
+]
 
 
 def get_html(url, params=''):
@@ -122,21 +121,24 @@ def sneck_list(items):
 
 
 # todo сделать универсальный парсер точек питания
-# def food_list(items, food_dict):
+# def food_list(items, food_point_lists):
 #     acc = []
 #     for name, time in time_dict.items():
 #         for pos in items:
-#             for value in food_dict.values():
+#             for value in food_point_lists:
 #                 if pos['title'] in value:
 #                     if pos['title'] == name:
 #                         description = pos['desc'].split(sep='.')
 #                         acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
-#     acc_string = '\n'.join(acc)
-#     return acc_string
+#         acc_string = '\n'.join(acc)
+#         return acc_string
 
 
 html = get_html(URL)
 items = get_content(html.text)
+
+# point_food = food_list(items, food_point_lists)
+# print(point_food)
 
 rest_list = get_rest_list(items)
 bar_list = get_bar_list(items)
