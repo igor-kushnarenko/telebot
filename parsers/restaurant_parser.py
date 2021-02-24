@@ -66,7 +66,7 @@ def get_rest_list(items):
             if pos['title'] in restraunt_list:
                 if pos['title'] == name:
                     description = pos['desc'].split(sep='.')
-                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 
@@ -82,7 +82,7 @@ def get_bar_list(items):
             if pos['title'] in bar_list:
                 if pos['title'] == name:
                     description = pos['desc'].split(sep='.')
-                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 
@@ -97,7 +97,7 @@ def child_cafe_list(items):
             if pos['title'] in child_list:
                 if pos['title'] == name:
                     description = pos['desc'].split(sep='.')
-                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 
@@ -115,7 +115,7 @@ def sneck_list(items):
             if pos['title'] in sneck_list:
                 if pos['title'] == name:
                     description = pos['desc'].split(sep='.')
-                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
+                    acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 

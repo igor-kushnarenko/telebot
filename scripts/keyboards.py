@@ -29,8 +29,9 @@ def schedule_keyboard():
 
 def contacts_keyboard():
     keyboard = types.InlineKeyboardMarkup()
-    keyboard.row_width = 2
+    keyboard.row_width = 1
     keyboard.add(
-        types.InlineKeyboardButton('Instagram', 'https://www.instagram.com/doville__animation/'),
-        types.InlineKeyboardButton('VK', 'https://vk.com/dovilleanimation_club'),
+        types.InlineKeyboardButton('🔗 Instagram', 'https://www.instagram.com/doville__animation/'),
+        types.InlineKeyboardButton('🔗 ВКОНТАКТЕ', 'https://vk.com/dovilleanimation_club'),
     )
+    return keyboard
