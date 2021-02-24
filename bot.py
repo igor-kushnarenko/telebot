@@ -16,6 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 main_keyboard = keyboards.main_keyboard()
 food_keyboard = keyboards.food_keyboard()
 schedule_keyboard = keyboards.schedule_keyboard()
+contacts_keyboard = keyboards.contacts_keyboard()
 
 
 @bot.message_handler(commands=['start'])
@@ -151,7 +152,7 @@ def inline_key(message: Message):
         bot.send_message(
             message.chat.id,
             text=text_data['contacts'],
-            reply_markup=main_keyboard,
+            reply_markup=contacts_keyboard,
             disable_web_page_preview=True,
         )
 
