@@ -35,3 +35,15 @@ def contacts_keyboard():
         types.InlineKeyboardButton('🔗 ВКОНТАКТЕ', 'https://vk.com/dovilleanimation_club'),
     )
     return keyboard
+
+
+def services_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.row_width = 2
+    keyboard.add(
+        types.InlineKeyboardButton('🛍️ Магазины', 'https://dovilleresort.ru/about/services/magazini/'),
+        types.InlineKeyboardButton('💼 Консьерж', 'https://dovilleresort.ru/about/services/consierge/'),
+        types.InlineKeyboardButton('🥘 Рум-сервис', 'https://dovilleresort.ru/about/services/room-service/'),
+        types.InlineKeyboardButton('🅿️ Парковка', 'https://dovilleresort.ru/about/services/parking/'),
+    )
+    return keyboard
