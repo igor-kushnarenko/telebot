@@ -4,7 +4,7 @@ import time
 import telebot
 from telebot.types import Message
 
-import schedule_img
+import schedule_parser
 
 from parsers.megaparser import parser_dict
 from scripts import keyboards
@@ -94,7 +94,7 @@ def inline_key(message: Message):
         )
     elif message.text == '🎆 Вечерние мероприятия':
         image_name = 'animation_week.jpg'
-        file = schedule_img.schedule_open_img(image_name)
+        file = schedule_parser.schedule_open_img(image_name)
         try:
             image = open(file, 'rb')
             bot.send_photo(
@@ -108,9 +108,16 @@ def inline_key(message: Message):
                 text='Расписание не найдено',
                 reply_markup=schedule_keyboard,
             )
+    elif message.text == '☀️ Дневные мероприятия':
+        bot.send_message(
+            message.chat.id,
+            text=schedule_parser.schedule_day_parser,
+            reply_markup=main_keyboard,
+            disable_web_page_preview=True,
+        )
     elif message.text == '💻 Студия 3D-моделирования':
         IMAGE_NAME = 'media_studio.jpg'
-        file = schedule_img.schedule_open_img(IMAGE_NAME)
+        file = schedule_parser.schedule_open_img(IMAGE_NAME)
         try:
             image = open(file, 'rb')
             bot.send_photo(
@@ -126,7 +133,7 @@ def inline_key(message: Message):
             )
     elif message.text == '🥗 Кулинарный мастер-класс':
         IMAGE_NAME = 'kulinarny_master_class.jpg'
-        file = schedule_img.schedule_open_img(IMAGE_NAME)
+        file = schedule_parser.schedule_open_img(IMAGE_NAME)
         try:
             image = open(file, 'rb')
             bot.send_photo(
