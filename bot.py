@@ -10,7 +10,7 @@ from parsers.megaparser import parser_dict
 from scripts import keyboards
 from settings import TOKEN
 from scripts.logg import log, configure_logging
-from text_data import text_data
+from scripts.text_data import text_data
 
 bot = telebot.TeleBot(TOKEN)
 main_keyboard = keyboards.main_keyboard()
