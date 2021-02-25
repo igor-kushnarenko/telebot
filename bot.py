@@ -5,7 +5,7 @@ import telebot
 from telebot.types import Message
 
 import schedule_parser
-from scripts.add_user import add_user, answer
+from scripts.add_user import add_user, read_user_set
 from parsers.megaparser import parser_dict
 from settings import TOKEN
 from scripts import keyboards
@@ -178,6 +178,7 @@ def inline_key(message: Message):
         )
 
     elif message.text == 'Статистика':
+        answer = read_user_set()
         bot.send_message(
             message.chat.id,
             text=answer,

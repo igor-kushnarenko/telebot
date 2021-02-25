@@ -3,6 +3,12 @@ import pickle
 file_data = 'scripts/user_id.pickle'
 
 
+def create_new_pickle_file():
+    with open(file_data, 'wb') as f:
+        user_id = set()
+        pickle.dump(user_id, f)
+
+
 def add_user(id):
     with open(file_data, 'rb') as f:
         user_id = pickle.load(f)
@@ -23,6 +29,3 @@ def read_user_set():
         user_id = pickle.load(f)
         answer = f'Всего уникальных пользователей: {len(user_id)}'
         return answer
-
-
-answer = read_user_set()
