@@ -2,7 +2,7 @@ import fake_useragent
 import requests
 from bs4 import BeautifulSoup
 
-from rest_period_parser import time_dict
+from text_data import text_data
 
 
 HOST = 'https://dovilleresort.ru'
@@ -61,7 +61,7 @@ def get_rest_list(items):
         'Гастрономический ресторан Saint Michel',
     ]
     acc = []
-    for name, time in time_dict.items():
+    for name, time in text_data['time_dict'].items():
         for pos in items:
             if pos['title'] in restraunt_list:
                 if pos['title'] == name:
@@ -77,7 +77,7 @@ def get_bar_list(items):
         'Lobby bar',
     ]
     acc = []
-    for name, time in time_dict.items():
+    for name, time in text_data['time_dict'].items():
         for pos in items:
             if pos['title'] in bar_list:
                 if pos['title'] == name:
@@ -92,7 +92,7 @@ def child_cafe_list(items):
         'Детское кафе Карамелька',
     ]
     acc = []
-    for name, time in time_dict.items():
+    for name, time in text_data['time_dict'].items():
         for pos in items:
             if pos['title'] in child_list:
                 if pos['title'] == name:
@@ -110,7 +110,7 @@ def sneck_list(items):
 
     ]
     acc = []
-    for name, time in time_dict.items():
+    for name, time in text_data['time_dict'].items():
         for pos in items:
             if pos['title'] in sneck_list:
                 if pos['title'] == name:

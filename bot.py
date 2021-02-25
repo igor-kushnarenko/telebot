@@ -112,7 +112,7 @@ def inline_key(message: Message):
         bot.send_message(
             message.chat.id,
             text=schedule_parser.schedule_day_parser,
-            reply_markup=main_keyboard,
+            reply_markup=schedule_keyboard,
             disable_web_page_preview=True,
         )
     elif message.text == '💻 Студия 3D-моделирования':
