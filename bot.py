@@ -5,10 +5,10 @@ import telebot
 from telebot.types import Message
 
 import schedule_parser
-
+from scripts.add_user import add_user, answer
 from parsers.megaparser import parser_dict
-from scripts import keyboards
 from settings import TOKEN
+from scripts import keyboards
 from scripts.logg import log, configure_logging
 from text_data import text_data
 
@@ -22,7 +22,7 @@ services_keydoars = keyboards.services_keyboard()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    # add_user(message.from_user.id) # todo здесь проблема когда начинает писать новый юзер
+    add_user(message.from_user.id)
     bot.send_message(
         message.chat.id,
         text_data['instruction']['start'],
@@ -174,6 +174,13 @@ def inline_key(message: Message):
         bot.send_message(
             message.chat.id,
             text='Главное меню',
+            reply_markup=main_keyboard,
+        )
+
+    elif message.text == 'Статистика':
+        bot.send_message(
+            message.chat.id,
+            text=answer,
             reply_markup=main_keyboard,
         )
 
