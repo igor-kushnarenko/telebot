@@ -22,7 +22,7 @@ services_keydoars = keyboards.services_keyboard()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    add_user(message.from_user.id)
+    add_user(message)
     bot.send_message(
         message.chat.id,
         text_data['instruction']['start'],
