@@ -81,11 +81,11 @@ def inline_key(message: Message):
 
     # РАСПИСАНИЕ
     elif message.text == '🗓️ Расписание мероприятий':
-        # bot.send_message(
-        #     message.chat.id,
-        #     text='Выберите расписание:',
-        #     reply_markup=schedule_keyboard,
-        # )
+        bot.send_message(
+            message.chat.id,
+            text='Праздничное расписание "8 МАРТА: Главный праздник весны!"',
+            reply_markup=schedule_keyboard,
+        )
         image_name = 'holiday_schedule.jpg'
         file = schedule_parser.schedule_open_img(image_name)
         try:
@@ -209,16 +209,10 @@ def inline_key(message: Message):
         )
 
 
-def main_loop():
-    bot.polling(True)
-    while 1:
-        time.sleep(3)
-
-
 if __name__ == '__main__':
-    configure_logging()
-    try:
-        main_loop()
-    except KeyboardInterrupt:
-        print('\nExiting by user request.\n')
-        sys.exit(0)
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as ex:
+            time.sleep(3)
+            print(ex)
