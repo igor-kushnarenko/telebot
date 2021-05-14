@@ -2,7 +2,7 @@ import fake_useragent
 import requests
 from bs4 import BeautifulSoup
 
-from text_data import text_data
+from scripts.text_data import text_data
 
 
 HOST = 'https://dovilleresort.ru'

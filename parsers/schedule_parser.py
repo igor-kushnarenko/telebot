@@ -1,10 +1,10 @@
 import os
 
-from text_data import text_data
+from scripts.text_data import text_data
 
 
 def schedule_open_img(name_image):
-    directory = '/home/maxim/PycharmProjects/telebot/static/img'
+    directory = 'static/img'
     files = os.listdir(directory)
     if name_image in files:
         path_img = directory + '/' + name_image
