@@ -5,8 +5,7 @@ def main_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('🗓️ Расписание мероприятий')
     keyboard.row('🍽️ Питание', '🔔 Услуги')
-    keyboard.row('❇️ Акции и скидки', '🌐 Связь с нами')
-    keyboard.row('Наша анимация')
+    keyboard.row('❇ Акции и скидки', '🌐 Связь с нами')
     return keyboard
 
 
@@ -20,10 +19,8 @@ def food_keyboard():
 
 def schedule_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    # keyboard.row('7️⃣ Расписание на 7 дней')
-    keyboard.row('☀️ Дневные мероприятия')
     keyboard.row('🎆 Вечерние мероприятия')
-    keyboard.row('💻 Студия 3D-моделирования', '🥗 Кулинарный мастер-класс')
+    keyboard.row('🥗 Кулинарный мастер-класс')
     keyboard.row('🔙 Назад')
     return keyboard
 
@@ -48,3 +45,15 @@ def services_keyboard():
         types.InlineKeyboardButton('🅿️ Парковка', 'https://dovilleresort.ru/about/services/parking/'),
     )
     return keyboard
+
+
+
+
+def schedule_open_img():
+    directory = 'static/img'
+    if number_week // 2 == 0:
+        name_image = '2.jpg'
+    else:
+        name_image = '1.jpg'
+    path_img = directory + '/' + name_image
+    return path_img

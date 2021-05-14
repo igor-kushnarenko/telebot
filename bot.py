@@ -83,56 +83,12 @@ def inline_key(message: Message):
     elif message.text == '🗓️ Расписание мероприятий':
         bot.send_message(
             message.chat.id,
-            text='Праздничное расписание "8 МАРТА: Главный праздник весны!"',
-            reply_markup=schedule_keyboard,
-        )
-        image_name = 'holiday_schedule.jpg'
-        file = schedule_parser.schedule_open_img(image_name)
-        try:
-            image = open(file, 'rb')
-            bot.send_photo(
-                message.chat.id,
-                image,
-                reply_markup=schedule_keyboard,
-            )
-        except:
-            bot.send_message(
-                message.chat.id,
-                text='Расписание не найдено',
-                reply_markup=schedule_keyboard,
-            )
-    elif message.text == '7️⃣ Расписание на 7 дней':
-        bot.send_message(
-            message.chat.id,
-            text=parser_dict['calendar_parser'],
-            reply_markup=schedule_keyboard,
-        )
-    elif message.text == '🎆 Вечерние мероприятия':
-        image_name = 'animation_week.jpg'
-        file = parsers.schedule_parser.schedule_open_img(image_name)
-        try:
-            image = open(file, 'rb')
-            bot.send_photo(
-                message.chat.id,
-                image,
-                reply_markup=schedule_keyboard,
-            )
-        except:
-            bot.send_message(
-                message.chat.id,
-                text='Расписание не найдено',
-                reply_markup=schedule_keyboard,
-            )
-    elif message.text == '☀️ Дневные мероприятия':
-        bot.send_message(
-            message.chat.id,
-            text=parsers.schedule_parser.schedule_day_parser,
+            text='Выберите расписание: ',
             reply_markup=schedule_keyboard,
             disable_web_page_preview=True,
         )
-    elif message.text == '💻 Студия 3D-моделирования':
-        IMAGE_NAME = 'media_studio.jpg'
-        file = parsers.schedule_parser.schedule_open_img(IMAGE_NAME)
+    elif message.text == '🎆 Вечерние мероприятия':
+        file = parsers.schedule_parser.calendar_open_image()
         try:
             image = open(file, 'rb')
             bot.send_photo(
@@ -147,8 +103,8 @@ def inline_key(message: Message):
                 reply_markup=schedule_keyboard,
             )
     elif message.text == '🥗 Кулинарный мастер-класс':
-        IMAGE_NAME = 'kulinarny_master_class.jpg'
-        file = parsers.schedule_parser.schedule_open_img(IMAGE_NAME)
+        image_name = 'kulinarny_master_class.jpg'
+        file = parsers.schedule_parser.schedule_open_img(image_name)
         try:
             image = open(file, 'rb')
             bot.send_photo(
@@ -163,7 +119,7 @@ def inline_key(message: Message):
                 reply_markup=schedule_keyboard,
             )
 
-    elif message.text == '❇️ Акции и скидки':
+    elif message.text == '❇ Акции и скидки':
         bot.send_message(
             message.chat.id,
             text=parser_dict['promotion_parser'],

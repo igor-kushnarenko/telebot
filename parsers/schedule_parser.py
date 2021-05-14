@@ -1,6 +1,23 @@
 import os
+from datetime import datetime
+
+number_week = datetime.now().date().isocalendar()[1]
+if number_week // 2 == 0:
+    print('Неделя четная')
+else:
+    print('Неделя нечетная')
 
 from scripts.text_data import text_data
+
+
+def calendar_open_image():
+    directory = 'static/img'
+    if number_week // 2 == 0:
+        name_image = '2.jpg'
+    else:
+        name_image = '1.jpg'
+    path_img = directory + '/' + name_image
+    return path_img
 
 
 def schedule_open_img(name_image):
