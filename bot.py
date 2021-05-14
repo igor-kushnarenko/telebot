@@ -22,7 +22,7 @@ services_keydoars = keyboards.services_keyboard()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    add_user(message.from_user.id)
+    add_user(message)
     bot.send_message(
         message.chat.id,
         text_data['instruction']['start'],
@@ -83,9 +83,24 @@ def inline_key(message: Message):
     elif message.text == '🗓️ Расписание мероприятий':
         bot.send_message(
             message.chat.id,
-            text='Выберите расписание:',
+            text='Праздничное расписание "8 МАРТА: Главный праздник весны!"',
             reply_markup=schedule_keyboard,
         )
+        image_name = 'holiday_schedule.jpg'
+        file = schedule_parser.schedule_open_img(image_name)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
     elif message.text == '7️⃣ Расписание на 7 дней':
         bot.send_message(
             message.chat.id,
@@ -194,16 +209,10 @@ def inline_key(message: Message):
         )
 
 
-def main_loop():
-    bot.polling(True)
-    while 1:
-        time.sleep(3)
-
-
 if __name__ == '__main__':
-    configure_logging()
-    try:
-        main_loop()
-    except KeyboardInterrupt:
-        print('\nExiting by user request.\n')
-        sys.exit(0)
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as ex:
+            time.sleep(3)
+            print(ex)
