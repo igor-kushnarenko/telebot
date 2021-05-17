@@ -6,14 +6,12 @@ from scripts.text_data import text_data
 
 def calendar_open_image():
     number_week = datetime.now().date().isocalendar()[1]
-    print(number_week)
     directory = 'static/img'
     if number_week % 2 == 0:
         name_image = '2.jpg'
     else:
         name_image = '1.jpg'
     path_img = directory + '/' + name_image
-    print(path_img)
     return path_img
 
 
