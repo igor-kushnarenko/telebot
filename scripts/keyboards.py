@@ -3,7 +3,7 @@ from telebot import types
 
 def main_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
-    keyboard.row('🗓️ Расписание мероприятий')
+    keyboard.row('🗓️ Расписание/Мастер-классы')
     keyboard.row('🍽️ Питание', '🔔 Услуги')
     keyboard.row('❇ Акции и скидки', '🌐 Связь с нами')
     return keyboard
