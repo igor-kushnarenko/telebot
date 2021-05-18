@@ -42,6 +42,7 @@ def send_help(message):
 @bot.message_handler(content_types=['text'])
 def inline_key(message: Message):
     log.info(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
+    print(f'{message.from_user.id}, {message.from_user.first_name} => {message.text}')
 
     # ПИТАНИЕ
     if message.text == '🍽️ Питание':
@@ -166,10 +167,11 @@ def inline_key(message: Message):
 
 
 if __name__ == '__main__':
+    configure_logging()
     while True:
         try:
             bot.polling(none_stop=True)
-            configure_logging()
+
         except Exception as ex:
             time.sleep(3)
             print(ex)

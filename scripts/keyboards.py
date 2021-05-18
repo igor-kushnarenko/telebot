@@ -45,15 +45,3 @@ def services_keyboard():
         types.InlineKeyboardButton('🅿️ Парковка', 'https://dovilleresort.ru/about/services/parking/'),
     )
     return keyboard
-
-
-
-
-def schedule_open_img():
-    directory = 'static/img'
-    if number_week // 2 == 0:
-        name_image = '2.jpg'
-    else:
-        name_image = '1.jpg'
-    path_img = directory + '/' + name_image
-    return path_img
