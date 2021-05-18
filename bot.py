@@ -169,6 +169,7 @@ if __name__ == '__main__':
     while True:
         try:
             bot.polling(none_stop=True)
+            configure_logging()
         except Exception as ex:
             time.sleep(3)
             print(ex)

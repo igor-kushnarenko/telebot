@@ -15,8 +15,8 @@ def add_user(message):
         user_id = pickle.load(f)
         print(f'{datetime.now()} Инициализация...')
         print(f'Массив загружен: {user_id}')
+        print(f'Всего уникальных пользователей: {len(user_id)}')
         if message not in user_id:
-            print(f'Пользователя {message.from_user.id} - {message.from_user.first_name} нет в базе')
             user_id.add(message.from_user.id)
             print(f'Пользователь {message.from_user.id} - {message.from_user.first_name} добавлен в базу')
             with open(file_data, 'wb') as f:
