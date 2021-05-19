@@ -19,6 +19,7 @@ schedule_keyboard = keyboards.schedule_keyboard()
 contacts_keyboard = keyboards.contacts_keyboard()
 services_keyboard = keyboards.services_keyboard()
 teen_club_keyboard = keyboards.teen_club_keyboard()
+cook_masterclass_keyboard = keyboards.cook_masterclass_keyboard()
 
 
 @bot.message_handler(commands=['start'])
@@ -114,6 +115,11 @@ def inline_key(message: Message):
                 image,
                 reply_markup=schedule_keyboard,
             )
+            bot.send_message(
+                message.chat.id,
+                text='Подробнее: ',
+                reply_markup=cook_masterclass_keyboard,
+            )
         except:
             bot.send_message(
                 message.chat.id,
@@ -123,7 +129,7 @@ def inline_key(message: Message):
     elif message.text == '😎 Teen-club':
         bot.send_message(
             message.chat.id,
-            text='Подробнее: ',
+            text='Teen CLUB - это Клуб для тинейджеров, отдыхающих в Alean Family Resort & Spa Doville 5*',
             reply_markup=teen_club_keyboard,
         )
 

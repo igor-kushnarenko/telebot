@@ -20,8 +20,7 @@ def food_keyboard():
 def schedule_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('🎆 Вечерние мероприятия')
-    keyboard.row('😎 Teen-club')
-    keyboard.row('🥗 Кулинарный мастер-класс')
+    keyboard.row('😎 Teen-club', '🥗 Кулинарный мастер-класс')
     keyboard.row('🔙 Назад')
     return keyboard
 
@@ -53,5 +52,14 @@ def teen_club_keyboard():
     keyboard.row_width = 1
     keyboard.add(
         types.InlineKeyboardButton('Перейти ➡️', 'https://vk.com/public204655046'),
+    )
+    return keyboard
+
+
+def cook_masterclass_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.row_width = 1
+    keyboard.add(
+        types.InlineKeyboardButton('Перейти ➡️', 'https://www.instagram.com/stanislavkalinovskiy/'),
     )
     return keyboard
