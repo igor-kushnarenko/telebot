@@ -20,6 +20,7 @@ def food_keyboard():
 def schedule_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('🎆 Вечерние мероприятия')
+    keyboard.row('😎 Teen-club')
     keyboard.row('🥗 Кулинарный мастер-класс')
     keyboard.row('🔙 Назад')
     return keyboard
@@ -43,5 +44,14 @@ def services_keyboard():
         types.InlineKeyboardButton('💼 Консьерж', 'https://dovilleresort.ru/about/services/consierge/'),
         types.InlineKeyboardButton('🥘 Рум-сервис', 'https://dovilleresort.ru/about/services/room-service/'),
         types.InlineKeyboardButton('🅿️ Парковка', 'https://dovilleresort.ru/about/services/parking/'),
+    )
+    return keyboard
+
+
+def teen_club_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.row_width = 1
+    keyboard.add(
+        types.InlineKeyboardButton('Перейти ➡️', 'https://vk.com/public204655046'),
     )
     return keyboard

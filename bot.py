@@ -17,7 +17,8 @@ main_keyboard = keyboards.main_keyboard()
 food_keyboard = keyboards.food_keyboard()
 schedule_keyboard = keyboards.schedule_keyboard()
 contacts_keyboard = keyboards.contacts_keyboard()
-services_keydoars = keyboards.services_keyboard()
+services_keyboard = keyboards.services_keyboard()
+teen_club_keyboard = keyboards.teen_club_keyboard()
 
 
 @bot.message_handler(commands=['start'])
@@ -119,6 +120,12 @@ def inline_key(message: Message):
                 text='Расписание не найдено',
                 reply_markup=schedule_keyboard,
             )
+    elif message.text == '😎 Teen-club':
+        bot.send_message(
+            message.chat.id,
+            text='Подробнее: ',
+            reply_markup=teen_club_keyboard,
+        )
 
     elif message.text == '❇ Акции и скидки':
         bot.send_message(
@@ -139,7 +146,7 @@ def inline_key(message: Message):
         bot.send_message(
             message.chat.id,
             text='Наши услуги: ',
-            reply_markup=services_keydoars,
+            reply_markup=services_keyboard,
         )
 
     elif message.text == '🔙 Назад':
