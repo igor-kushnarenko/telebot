@@ -126,6 +126,38 @@ def inline_key(message: Message):
                 text='Расписание не найдено',
                 reply_markup=schedule_keyboard,
             )
+    elif message.text == '🎥 Cinema-academy':
+        image_name = 'kino.jpg'
+        file = parsers.schedule_parser.schedule_open_img(image_name)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
+    elif message.text == '🤸 Fitness-academy':
+        image_name = 'fitness.jpg'
+        file = parsers.schedule_parser.schedule_open_img(image_name)
+        try:
+            image = open(file, 'rb')
+            bot.send_photo(
+                message.chat.id,
+                image,
+                reply_markup=schedule_keyboard,
+            )
+        except:
+            bot.send_message(
+                message.chat.id,
+                text='Расписание не найдено',
+                reply_markup=schedule_keyboard,
+            )
     elif message.text == '😎 Teen-club':
         bot.send_message(
             message.chat.id,

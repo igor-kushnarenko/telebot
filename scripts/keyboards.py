@@ -21,6 +21,7 @@ def schedule_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
     keyboard.row('🎆 Вечерние мероприятия')
     keyboard.row('😎 Teen-club', '🥗 Кулинарный мастер-класс')
+    keyboard.row('🎥 Cinema-academy', '🤸 Fitness-academy')
     keyboard.row('🔙 Назад')
     return keyboard
 
