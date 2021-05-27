@@ -20,6 +20,7 @@ contacts_keyboard = keyboards.contacts_keyboard()
 services_keyboard = keyboards.services_keyboard()
 teen_club_keyboard = keyboards.teen_club_keyboard()
 cook_masterclass_keyboard = keyboards.cook_masterclass_keyboard()
+fedorova_keyboard = keyboards.fedorova_keyboard()
 
 
 @bot.message_handler(commands=['start'])
@@ -84,6 +85,15 @@ def inline_key(message: Message):
 
     # РАСПИСАНИЕ
     elif message.text == '🗓️ Расписание/Мастер-классы':
+        bot.send_message(
+            message.chat.id,
+            text='C 1 июня по 31 августа в сети курортов Alean Family Resort Collection будут работать '
+                 'творческие мастерские выставки, на которых все желающие могут приобрести детские поделки, '
+                 'а так же принять участие в благотворительных аукционах, и все собранные средства будут направленны '
+                 'в благотворительный фонд Оксаны Федоровой.',
+            reply_markup=fedorova_keyboard,
+            disable_web_page_preview=True,
+        )
         bot.send_message(
             message.chat.id,
             text='Выберите расписание: ',

@@ -1,5 +1,7 @@
 from telebot import types
 
+from scripts.logg import log, configure_logging
+
 
 def main_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)
@@ -62,5 +64,16 @@ def cook_masterclass_keyboard():
     keyboard.row_width = 1
     keyboard.add(
         types.InlineKeyboardButton('Перейти ➡️', 'https://www.instagram.com/stanislavkalinovskiy/'),
+    )
+    return keyboard
+
+
+def fedorova_keyboard():
+    keyboard = types.InlineKeyboardMarkup()
+    keyboard.row_width = 1
+    keyboard.add(
+        types.InlineKeyboardButton('Принять участие ➡️',
+                                   'https://c.cloudpayments.ru/payments/7e8d475280974ced8aca998d76a93d60',
+                                   callback_data='fedorova'),
     )
     return keyboard
