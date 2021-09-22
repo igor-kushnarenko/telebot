@@ -13,25 +13,6 @@ HEADERS = {
     'user_agent': user
 }
 
-food_point_lists = [
-    [
-        'Ресторан Normandie',
-        'Гастрономический ресторан Saint Michel',
-    ],
-    [
-        'Disco bar',
-        'Lobby bar',
-    ],
-    [
-        'Детское кафе Карамелька',
-    ],
-    [
-        'Снек-бар Marinie',
-        'Снек-бар Bon appetit',
-        'Снек-бар на пляже Le Paradis',
-    ]
-]
-
 
 def get_html(url, params=''):
     r = requests.get(url, headers=HEADERS, params=params)
@@ -65,7 +46,6 @@ def get_rest_list(items):
         for pos in items:
             if pos['title'] in restraunt_list:
                 if pos['title'] == name:
-                    description = pos['desc'].split(sep='.')
                     acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
@@ -81,7 +61,6 @@ def get_bar_list(items):
         for pos in items:
             if pos['title'] in bar_list:
                 if pos['title'] == name:
-                    description = pos['desc'].split(sep='.')
                     acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
@@ -96,7 +75,6 @@ def child_cafe_list(items):
         for pos in items:
             if pos['title'] in child_list:
                 if pos['title'] == name:
-                    description = pos['desc'].split(sep='.')
                     acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
@@ -114,31 +92,13 @@ def sneck_list(items):
         for pos in items:
             if pos['title'] in sneck_list:
                 if pos['title'] == name:
-                    description = pos['desc'].split(sep='.')
                     acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{pos['href']}\n")
     acc_string = '\n'.join(acc)
     return acc_string
 
 
-# todo сделать универсальный парсер точек питания
-# def food_list(items, food_point_lists):
-#     acc = []
-#     for name, time in time_dict.items():
-#         for pos in items:
-#             for value in food_point_lists:
-#                 if pos['title'] in value:
-#                     if pos['title'] == name:
-#                         description = pos['desc'].split(sep='.')
-#                         acc.append(f"{pos['title'].upper()}\n{pos['period']}\n{time}\n{description[0]}\n{pos['href']}\n")
-#         acc_string = '\n'.join(acc)
-#         return acc_string
-
-
 html = get_html(URL)
 items = get_content(html.text)
-
-# point_food = food_list(items, food_point_lists)
-# print(point_food)
 
 rest_list = get_rest_list(items)
 bar_list = get_bar_list(items)

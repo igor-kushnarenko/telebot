@@ -1,7 +1,5 @@
 from telebot import types
 
-from scripts.logg import log, configure_logging
-
 
 def main_keyboard():
     keyboard = types.ReplyKeyboardMarkup(True, True)

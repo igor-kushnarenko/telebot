@@ -6,7 +6,6 @@ import fake_useragent
 from bs4 import BeautifulSoup
 from rutimeparser import parse
 
-
 URL = 'https://dovilleresort.ru/afisha/?date=1612137600'
 HOST = 'https://dovilleresort.ru/'
 user = fake_useragent.FakeUserAgent().random

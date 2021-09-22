@@ -1,8 +1,6 @@
 import os
 from datetime import datetime
 
-from scripts.text_data import text_data
-
 
 def calendar_open_image():
     number_week = datetime.now().date().isocalendar()[1]
@@ -33,6 +31,3 @@ def schedule_day(text_data):
             acc.append(f'{time} | {desc.upper()}\n{point}\n')
     acc_string = '\n'.join(acc)
     return acc_string
-
-
-schedule_day_parser = schedule_day(text_data)
